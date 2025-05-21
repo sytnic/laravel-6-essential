@@ -1,0 +1,21 @@
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# /storage
+# /bootstrap/cache
+# эти две папки не нужно отключать  
+# 1) это вызовет проблемы при клонировании  
+# 2) в них уже вложены .gitignore, 
+# заботящиеся о правильном отсеивании файлов при коммитах  
+
+/dbfiles
