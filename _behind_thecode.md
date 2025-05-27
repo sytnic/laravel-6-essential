@@ -3,6 +3,8 @@ https://github.com/seanmayer/laravel-essentials
 
 ## 03-Saving files
 
+**Commit: Level Zero:**
+
 > Запуск проекта на основе старого проекта
 
 Запуск миграций
@@ -13,18 +15,20 @@ https://github.com/seanmayer/laravel-essentials
 
     composer install
 
+**Commit: 3. Saving files:**
+
 > Создание новых фич
 
 Создание новой миграции
 
     php artisan make:migration AddRoomTypePictures
 
-Создание новой таблицы под хранение фотографий.   
+Создание нового столбца в таблице room_types под хранение фотографий.   
 Наполнение созданного файла и запуск миграции.  
 
     php artisan migrate
 
-Создание папки для хранения файлов
+Создание ссылки на папку для хранения файлов. Эта ссылка по умолчанию игнорируется в gitignore.
 
     php artisan storage:link
 
@@ -34,7 +38,7 @@ https://github.com/seanmayer/laravel-essentials
 
 Добавить маршрут в `routes/web.php`.
 
-Создать `views/roomTypes/edit.blade.php` и заполнить содержимым. 
+Создать `resources/views/roomTypes/edit.blade.php` и заполнить содержимым. 
 
 Корректировка контроллера в методах edit и update.  
 
