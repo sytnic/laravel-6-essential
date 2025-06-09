@@ -169,6 +169,24 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
+        // Требования по обязательности полей при обновлении.
+        // Проверить валидацию можно на странице редактирования записи:
+        // bookings/{booking}/edit, например, bookings/1/edit
+        $validatedData = $request->validate([
+            // несколько правил; date определяет, что инпут является датой:
+            'start' => 'required|date',
+            'end' => 'required|date',
+            // несколько правил; exists требует существование поля в таблице:
+            'room_id' => 'required|exists:rooms,id',
+            'user_id' => 'required|exists:users,id',
+            // nullable - можно оставлять без значения; is_paid - это галочка, чекбокс:
+            'is_paid' => 'nullable',
+            // present - может принимать вид пустой строки:
+            'notes' => 'present',
+            // is_reservation - скрытое поле:
+            'is_reservation' => 'required',
+        ]);
+
         /*
         // Две строчки ниже вместо этого
 
@@ -185,23 +203,29 @@ class BookingController extends Controller
             'notes' => $request->input('notes'),
         ]);
         */
-
-        $booking->fill($request->input());
+        
+        // Теперь используются не прямые данные из формы,
+        // $booking->fill($request->input());
+        // а данные, прошедшие требования по валидации
+        $booking->fill($validatedData);
+        
         $booking->save();
 
-        // Заменим эти строчки на следующие, чтобы использовать отношения,
-        // получаемые от разных таблиц.
-        /*
         // Вставка значений в таблицу bookings_users 
         DB::table('bookings_users')
         ->where('booking_id', $booking->id)        
         ->update([
             // booking_id при update не нужно обновлять
             // 'booking_id' => $booking->id,
-            'user_id' => $request->input('user_id'),
+            
+            // Использовать данные, прошедшие валидацию
+            //'user_id' => $request->input('user_id'),
+            'user_id' => $validatedData['user_id']
         ]);
-        */
-        $booking->users()->sync([$request->input('user_id')]);
+
+        // Вышеидущий DB::table() когда-то был заменён на эту строчку,
+        // чтобы использовать отношения, получаемые от разных таблиц:     
+        // $booking->users()->sync([$request->input('user_id')]);
         
         // Редирект
         return redirect()->action('BookingController@index');
