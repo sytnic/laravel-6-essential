@@ -37,16 +37,17 @@
                 {{ $errors->first('user_id') }}
             </p>
         @endif
-        
+
     </div>
 </div>
 
 <div class="form-group row">
     <label class="col-sm-2 col-form-label" for="start">Start Date</label>
     <div class="col-sm-10">
-        <input name="start" type="date" class="form-control" required placeholder="yyyy-mm-dd" 
-        value="{{ $booking->start ?? '' }}" />
-        {{-- нулевой оператор объединения, null coalesce operator, -
+        <input name="start" type="date" class="form-control" required placeholder="yyyy-mm-dd"
+        {{-- отображение старого введённого значения, если необходимо --}} 
+        value="{{ old('start') ?? $booking->start ?? '' }}" />
+        {{-- $booking->start ?? '' означает нулевой оператор объединения, null coalesce operator, -
                 более короткая запись тернарного оператора,
                 если первый оператор задан (isset) и он не null, вернуть его,
                 иначе, вернуть второй указанный оператор (здесь: пустую строку)            
@@ -59,7 +60,7 @@
     <label class="col-sm-2 col-form-label" for="start">End Date</label>
     <div class="col-sm-10">
         <input name="end" type="date" class="form-control" required placeholder="yyyy-mm-dd" 
-        value="{{ $booking->end ?? '' }}" />
+        value="{{ old('end') ?? $booking->end ?? '' }}" />
         <small class="form-text text-muted">The end date for the booking.</small>
     </div>
 </div>
@@ -69,7 +70,7 @@
     <div class="col-sm-10">
         <div class="form-check">
             <input name="is_paid" type="checkbox" class="form-check-input" value="1" 
-            {{ $booking->is_paid ? 'checked' : '' }} />
+            {{ old('is_paid') ?? $booking->is_paid ? 'checked' : '' }} />
             <label class="form-check-label" for="start">Pre-Paid</label>
             <small class="form-text text-muted">If the booking is being pre-paid.</small>
         </div>
@@ -80,7 +81,7 @@
     <label class="col-sm-2 col-form-label" for="notes">Notes</label>
     <div class="col-sm-10">
         <input name="notes" type="text" class="form-control" placeholder="Notes" 
-        value="{{ $booking->notes ?? '' }}" />
+        value="{{ old('notes') ?? $booking->notes ?? '' }}" />
         <small class="form-text text-muted">Any notes for the booking.</small>
     </div>
 </div>
