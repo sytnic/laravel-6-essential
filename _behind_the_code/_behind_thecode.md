@@ -45,4 +45,8 @@ https://github.com/seanmayer/laravel-essentials
 По адресу `/room_types/1/edit` должно работать прикрепление фото с компа для комнаты.  
 Далее будет создаваться дальнейший интерфейс.  
 
-## 
+## 006-Displaying validation errors
+
+<img src="img/display_form_errors.jpg" alt="drawing" width="600"/>
+
+##
