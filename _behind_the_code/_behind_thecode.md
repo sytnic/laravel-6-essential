@@ -76,4 +76,10 @@ https://github.com/seanmayer/laravel-essentials
 
     php artisan reservations:notify
 
-## 
+## 009-Console outputs
+
+Выполнение команды закладывают в метод `handle()` класса команды.  
+
+##     
+
+

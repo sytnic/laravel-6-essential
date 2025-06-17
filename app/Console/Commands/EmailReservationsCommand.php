@@ -39,6 +39,18 @@ class EmailReservationsCommand extends Command
      */
     public function handle()
     {
-        //
+        // Информационная строка
+        $bookings = \App\Booking::with(['room.roomType','users'])->get();
+        $this->info(sprintf('The number of bookings to alert for is: %d', $bookings->count()));
+
+        // Прогресс-бар
+        $bar = $this->output->CreateProgressBar($bookings->count());
+        $bar->start();
+        foreach($bookings as $booking){
+            $this->error('Nothing happened');
+            $bar->advance();
+        }
+        $bar->finish();
+        $this->comment('Command completed!');
     }
 }
