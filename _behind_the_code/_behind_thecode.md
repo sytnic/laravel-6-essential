@@ -49,4 +49,31 @@ https://github.com/seanmayer/laravel-essentials
 
 <img src="img/display_form_errors.jpg" alt="drawing" width="600"/>
 
-##
+## 008-Console commands
+
+    php artisan
+
+    php artisan tinker
+
+Возможные команды в тинкере
+
+    App\Room::first();
+    App\Room::first()->id;
+    10%3
+    $x = 10%3; $x++; echo $x;
+
+    exit
+
+Создание собственных команд (например, для Cron сервера):
+
+    php artisan make:command EmailReservationsCommand
+
+Далее, редактирование полученного файла в app/Console/Commands, и
+
+    php artisan list
+
+В списке команд будет доступна наша новая команда. Но на данный момент она ничего не выполняет.
+
+    php artisan reservations:notify
+
+## 
