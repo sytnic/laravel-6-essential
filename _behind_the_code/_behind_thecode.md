@@ -80,6 +80,14 @@ https://github.com/seanmayer/laravel-essentials
 
 Выполнение команды закладывают в метод `handle()` класса команды.  
 
-##     
+## 010-Console arguments
 
+После модификации EmailReservationsCommand ввод команд
 
+    php artisan reservations:notify one
+    # выведет ошибку с созданным сообщением
+
+    php artisan reservations:notify 1
+    # будет выведена (подсчитана) одна строка
+
+##
