@@ -47,6 +47,9 @@ class EmailReservationsCommand extends Command
      */
     public function handle()
     {
+        $answer = $this->ask('What service should we use?');
+        var_dump($answer);
+
         // Создаётся числовой аргумент для своей команды в protected $signature,
         // с валидацией (проверкой) на число.
         $count = $this->argument('count');

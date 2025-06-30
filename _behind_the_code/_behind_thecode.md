@@ -100,4 +100,11 @@ https://github.com/seanmayer/laravel-essentials
 
     php artisan reservations:notify 5 --dry-run=Y
 
-##
+## 012-Console inputs
+
+При использовании `$this->ask()` в `public function handle()` будут задаваться вопросы пользователю в консоли.
+
+    php artisan reservations:notify 3
+
+
+
