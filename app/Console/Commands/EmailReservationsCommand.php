@@ -11,9 +11,16 @@ class EmailReservationsCommand extends Command
      *
      * @var string
      */
+    // команда для artisan
     //protected $signature = 'command:name';
-    protected $signature = 'reservations:notify 
-    {count : The number of bookings to retrieve}';
+
+    // команда для artisan - reservations:notify,
+    // {count} - аргумент команды,
+    // {--dry-run} - опция команды,
+    // после двоеточия { : } - подписи аргумента и опции.
+    protected $signature = 'reservations:notify     
+    {count : The number of bookings to retrieve}
+    {--dry-run= : To have this command do no actual work.}';
 
     /**
      * The console command description.
@@ -43,6 +50,7 @@ class EmailReservationsCommand extends Command
         // Создаётся числовой аргумент для своей команды в protected $signature,
         // с валидацией (проверкой) на число.
         $count = $this->argument('count');
+
         if (!is_numeric($count)) {
             $this->alert('The count must be a number');            
             return 1;
@@ -53,17 +61,31 @@ class EmailReservationsCommand extends Command
         }
         
         // Информационная строка
-        $bookings = \App\Booking::with(['room.roomType','users'])->limit($count)->get();
+        $bookings = \App\Booking::with(['room.roomType','users'])->limit($count)->get();        
         $this->info(sprintf('The number of bookings to alert for is: %d', $bookings->count()));
 
         // Прогресс-бар
-        $bar = $this->output->CreateProgressBar($bookings->count());
-        $bar->start();
+        $bar = $this->output->createProgressBar($bookings->count());  
+        //$bar->setOverwrite(false);      
+
+        $bar->start();    
+
         foreach($bookings as $booking){
-            $this->error('Nothing happened');
-            $bar->advance();
-        }
-        $bar->finish();
-        $this->comment('Command completed!');
+
+        // обработка опции
+          if ($this->option('dry-run')) {
+              $this->info(' Would process booking');
+              
+          } else {
+              $this->error(' Nothing happened'); 
+          }
+
+          // замечено, что эта строчка $bar->advance() не отрабатывает в консоли Docker'a
+          $bar->advance();
+        }  
+        
+        $bar->finish();          
+        
+        $this->comment(' Command completed!');            
     }
 }

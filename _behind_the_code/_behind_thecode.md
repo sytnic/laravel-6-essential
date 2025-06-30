@@ -90,4 +90,14 @@ https://github.com/seanmayer/laravel-essentials
     php artisan reservations:notify 1
     # будет выведена (подсчитана) одна строка
 
+## 011-Console options
+
+Команда для обработки опции
+
+    php artisan reservations:notify 5 --dry-run
+
+Если опция {--dry-run : } в классе указана с равно "{--dry-run= : }", то команда такая
+
+    php artisan reservations:notify 5 --dry-run=Y
+
 ##
