@@ -50,7 +50,15 @@ class EmailReservationsCommand extends Command
         // $answer = $this->ask('What service should we use?');
         // var_dump($answer);
 
-        $answer = $this->anticipate('What service should we use?', ['sms', 'email']);
+        // $answer = $this->anticipate('What service should we use?', ['sms', 'email']);
+        // var_dump($answer);
+
+        $answer = $this->choice(
+            'What service should we use?', 
+            ['sms', 'email'],
+            // опция, которая будет использована по умолчанию:
+            'email'
+        );
         var_dump($answer);
 
         // Создаётся числовой аргумент для своей команды в protected $signature,
