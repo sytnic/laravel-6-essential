@@ -106,5 +106,5 @@ https://github.com/seanmayer/laravel-essentials
 
     php artisan reservations:notify 3
 
-
+При использовании `$this->anticipate()` будут использоваться подсказки-заполнители для пользователя в консоли.
 
