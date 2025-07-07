@@ -110,4 +110,12 @@ https://github.com/seanmayer/laravel-essentials
 
 При использовании `$this->choice()` будут использоваться обязательные опции на выбор для пользователя в консоли.
 
-##
+## 013-Service providers
+
+Файл app\Libraries\Notifications.php создан вручную.  
+
+Далее следующая команда показывает, как срабатывает метод `Notifications@send()` на каждой итерации метода `EmailReservationsCommand@handle()`. 
+
+    php artisan reservations:notify 3
+
+## 
