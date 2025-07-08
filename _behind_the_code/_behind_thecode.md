@@ -118,4 +118,8 @@ https://github.com/seanmayer/laravel-essentials
 
     php artisan reservations:notify 3
 
-## 
+## 014-Facades
+
+Фасады используются совместно с AppServiceProvider.php для облегчения работы. Используя фасады не нужно знать, как создавать экземпляры класса или как внедрять класс в другие классы.
+
+##
