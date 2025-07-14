@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Facades\App\Libraries\Notifications;
+// use Facades\App\Libraries\Notifications;
+use App\Libraries\NotificationsInterface;
 
 class EmailReservationsCommand extends Command
 {
@@ -36,8 +37,9 @@ class EmailReservationsCommand extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(NotificationsInterface $notify)
     {
+        $this->notify = $notify;
         parent::__construct();
     }
 
@@ -94,8 +96,8 @@ class EmailReservationsCommand extends Command
           } else {
               //$this->error(' Nothing happened'); 
               
-              // $this->notify->send();
-              Notifications::send();
+              $this->notify->send();
+              // Notifications::send();
           }
 
           // замечено, что эта строчка $bar->advance() не отрабатывает в консоли Docker'a
