@@ -130,4 +130,9 @@ https://github.com/seanmayer/laravel-essentials
 
 Интерфейсы позволяют указывать их вместо конкретных классов. Конкретный класс будет вызываться через реализацию интерфейса.
 
-## 
+## 016-Automatic service container binding
+
+Внедрение класса в консольные команды без регистрации этого класса в AppServiceProvider.  
+Используется та же команда.  
+
+    php artisan reservations:notify 3
