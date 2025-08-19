@@ -136,3 +136,29 @@ https://github.com/seanmayer/laravel-essentials
 Используется та же команда.  
 
     php artisan reservations:notify 3
+
+## 017-Basic test
+
+Создание функционального теста (feature test)
+
+    php artisan make:test ShowRoomsControllerTest
+
+Этой командой создаётся файл в `tests/Feature/ShowRoomsControllerTest.php` .
+
+После доработки файла теста - Запуск теста из корня проекта (phpunit выше должен быть установлен глобально в переменной PATH)
+
+    phpunit .tests/Feature/ShowRoomsControllerTest.php
+
+или так (phpunit не установлен глобально)
+
+    vendor/bin/phpunit  tests/Feature/ShowRoomsControllerTest.php
+
+Запуск всех существующих тестов
+
+    phpunit
+
+или
+
+    vendor/bin/phpunit
+
+## 
