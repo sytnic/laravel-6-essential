@@ -153,6 +153,12 @@ https://github.com/seanmayer/laravel-essentials
 
     vendor/bin/phpunit  tests/Feature/ShowRoomsControllerTest.php
 
+Ответ показывает количество тестов и пройденных на истину утверждений (asserts)
+
+    .                       1 / 1 (100%)
+    Time: 1.62 seconds, Memory: 18.00 MB
+    OK (1 test, 4 assertions)
+
 Запуск всех существующих тестов
 
     phpunit

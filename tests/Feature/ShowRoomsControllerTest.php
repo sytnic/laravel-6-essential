@@ -16,10 +16,16 @@ class ShowRoomsControllerTest extends TestCase
     public function testExample()
     {
         // проверяемый url
-        $response = $this->get('/test');
+        $response = $this->get('/rooms');
 
         // проверяемые ожидаемые данные
+            // проверка ответа 200
         $response->assertStatus(200)
-            ->assertSeeText('Goodbye');
+            // ожидаемый текст
+            ->assertSeeText('Type')
+            // ожидаемое Вью
+            ->assertViewIs('rooms.index')
+            // ожидаемые переменные Вью
+            ->assertViewHas('rooms');
     }
 }
