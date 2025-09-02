@@ -8,6 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShowRoomsControllerTest extends TestCase
 {
+    // При каждом новом тесте обновлять фейковую БД, когда используешь ее
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -27,5 +29,29 @@ class ShowRoomsControllerTest extends TestCase
             ->assertViewIs('rooms.index')
             // ожидаемые переменные Вью
             ->assertViewHas('rooms');
+    }
+
+    /**
+     * Тест для проверки, что когда мы указываем Тип номера в Factory,
+     * мы перечисляем номера комнат, которые соответствуют этому конкретному Типу.
+     */
+    public function  testRoomParameter()
+    {
+        // Создать 3 случайные записи Типа номеров в БД
+        $roomTypes = factory('App\RoomType', 3)->create();
+        // Создать 20 случайных записей номеров комнат в БД
+        $rooms = factory('App\Room', 20)->create();
+
+        // Выбрать случайный id Типа комнаты
+        $roomType = $roomTypes->random();
+
+        // Тест
+        $response = $this->get('/rooms/'. $roomType->id);
+
+        $response->assertStatus(200)
+        ->assertSeeText('Type')
+        ->assertViewIs('rooms.index')
+        ->assertViewHas('rooms')
+        ->assertSeeText($roomType->name);       
     }
 }

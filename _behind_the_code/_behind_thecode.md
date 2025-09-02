@@ -145,7 +145,7 @@ https://github.com/seanmayer/laravel-essentials
 
 Этой командой создаётся файл в `tests/Feature/ShowRoomsControllerTest.php` .
 
-После доработки файла теста - Запуск теста из корня проекта (phpunit выше должен быть установлен глобально в переменной PATH)
+После доработки файла теста - Запуск теста из корня проекта (`phpunit` должен быть установлен глобально в переменной PATH).
 
     phpunit .tests/Feature/ShowRoomsControllerTest.php
 
@@ -167,4 +167,46 @@ https://github.com/seanmayer/laravel-essentials
 
     vendor/bin/phpunit
 
-## 
+##  018-Database factories
+
+Создание Фактори и привязка ее к модели 
+
+    php artisan make:factory RoomTypeFactory --model=RoomType
+
+Описание API Фэйкера Faker
+
+https://github.com/fzaninotto/Faker
+
+Для создания теста дозаполняются файлы 
+- `database\factories\RoomTypeFactory.php`,
+- `database\factories\RoomFactory.php`,
+- `tests\Feature\ShowRoomsControllerTest.php`.
+
+Для выполнения теста Factory нужно создать новую БД
+
+    php artisan tinker
+
+Далее в тинкере
+
+    DB::statement('CREATE DATABASE test;');
+
+Выход из тинкера `Ctrl+C`. В файле `phpunit.xml` в корне указать использовать фейковую БД. Будет создана временная БД в памяти.  
+
+    <server name="DB_DATABASE" value="test"/>
+
+С каждым новым тестом обновлять фейковую БД, когда используешь ее, указав это в файле `tests\Feature\ShowRoomsControllerTest.php`.
+ 
+    class ShowRoomsControllerTest extends TestCase
+    {    
+    use RefreshDatabase;
+    //...
+    }
+
+Сам тест
+
+    phpunit
+    // или
+    vendor/bin/phpunit
+
+##
+
