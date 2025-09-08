@@ -208,5 +208,32 @@ https://github.com/fzaninotto/Faker
     // или
     vendor/bin/phpunit
 
-##
+## 019-As a user
 
+Test as a user
+
+Создать тест
+
+    php artisan make:test HomeControllerTest
+
+В редакторе настроить тест для тестирования пользователя, вошедшего в систему.  
+
+Запуск теста
+
+    vendor/bin/phpunit
+
+    .....   5 / 5 (100%)
+    Time: 9.68 seconds, Memory: 24.00 MB
+    OK (5 tests, 13 assertions)
+
+Далее - создаём тест `testLoggedOut` для проверки редиректа пользователя, невошедшего в систему.
+
+Реран юнит-теста.
+
+    vendor/bin/phpunit
+
+    ......   6 / 6 (100%)
+    Time: 4.63 seconds, Memory: 24.00 MB
+    OK (6 tests, 16 assertions)
+
+## 
