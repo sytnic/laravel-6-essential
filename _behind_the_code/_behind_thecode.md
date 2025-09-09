@@ -210,7 +210,7 @@ https://github.com/fzaninotto/Faker
 
 ## 019-As a user
 
-Test as a user
+> Test as a user
 
 Создать тест
 
@@ -236,4 +236,15 @@ Test as a user
     Time: 4.63 seconds, Memory: 24.00 MB
     OK (6 tests, 16 assertions)
 
-## 
+## 020-Facades
+
+> Test of Facade
+
+CLI:
+
+    php artisan make:test RoomTypeControllerTest
+
+Кооректировка `app\Http\Controllers\RoomTypeController.php` и Запуск теста
+
+    vendor/bin/phpunit
+
