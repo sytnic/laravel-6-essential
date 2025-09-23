@@ -248,3 +248,17 @@ CLI:
 
     vendor/bin/phpunit
 
+## 021-File uploads
+
+> Test of File uploads
+
+    phpunit
+    # или
+    vendor/bin/phpunit
+
+Для выполнения этих тестов обязательно должна быть библиотека PHP GD, и устанавливается она с трудом.  
+Текущий файл Dockerfile правильно настроен для установки GD.  
+https://github.com/byCedric/Docker/issues/9  
+
+
+## 

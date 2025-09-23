@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ShowRoomsControllerTest extends TestCase
 {
@@ -53,5 +55,28 @@ class ShowRoomsControllerTest extends TestCase
         ->assertViewIs('rooms.index')
         ->assertViewHas('rooms')
         ->assertSeeText($roomType->name);       
+    }
+
+    /**
+     * Тестирование загрузки файла на несуществующем файле
+     */
+    public function testUpdateFile()
+    {
+        // создание фейкового файла
+        $file = UploadedFile::fake()->image('sample.jpg');
+        // создание типа команты
+        $roomType = factory('App\RoomType')->create();
+        // тестовая отправка файла с формой;
+        // в других случаях можно использовать this->post и this->delete
+        $response = $this->put("/room_types/{$roomType->id}",
+            ['picture' => $file]
+        );
+
+        // проверка теста,
+        // проверка успешности редиректа
+        $response->assertStatus(302)
+            ->assertRedirect('/room_types');
+        // проверка успешного сохранения файла в хранилище
+        Storage::disk('public')->assertExists($file->hashName());
     }
 }
