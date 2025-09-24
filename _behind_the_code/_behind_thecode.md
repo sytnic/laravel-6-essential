@@ -261,4 +261,14 @@ CLI:
 https://github.com/byCedric/Docker/issues/9  
 
 
-## 
+## 022-Console commands
+
+> Unit test
+
+Создать юнит-тест (модульный тест) вместо функционального теста (feature-test), как делалось ранее.  
+Функциональные тесты предназначены для тестирования всей функции сразу, в то время как модульный тест предназначен для тестирования одного блока кода.    
+
+    php artisan make:test EmailReservationsCommandTest --unit
+
+##
+

@@ -89,16 +89,9 @@ class EmailReservationsCommand extends Command
 
         foreach($bookings as $booking){
 
-        // обработка опции
-          if ($this->option('dry-run')) {
-              $this->info(' Would process booking');
-              
-          } else {
-              //$this->error(' Nothing happened'); 
-              
-              $this->notify->send();
-              // Notifications::send();
-          }
+        // if вынесен в отдельную функцию,
+        // к-рую будем проверять юнит-тестом
+        $this->processBooking();
 
           // замечено, что эта строчка $bar->advance() не отрабатывает в консоли Docker'a
           $bar->advance();
@@ -107,5 +100,19 @@ class EmailReservationsCommand extends Command
         $bar->finish();          
         
         $this->comment(' Command completed!');            
+    }
+
+    public function processBooking () 
+    {
+        // обработка опции
+        if ($this->option('dry-run')) {
+            $this->info(' Would process booking');
+            
+        } else {
+            //$this->error(' Nothing happened'); 
+            
+            $this->notify->send();
+            // Notifications::send();
+        }
     }
 }
