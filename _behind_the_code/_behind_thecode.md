@@ -270,5 +270,62 @@ https://github.com/byCedric/Docker/issues/9
 
     php artisan make:test EmailReservationsCommandTest --unit
 
-##
+## 023-Emails
 
+Mailhog - для тестирования отправляемой почты (которая, на самом деле, никуда не уходит).
+
+https://laravel.com/docs/6.x/homestead#configuring-mailhog
+
+Настройками Mailhog из документации заменяем соответствующие строки MAIL в файле .env . 
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=localhost
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+```
+
+Доступ к внутреннему почтовому приложению теперь будет по умолчанию по адресу:  `http://localhost:8025`.
+
+Команда, которая Create a new email class. 
+
+    php artisan make:mail Reservations --markdown=emails.reservation
+
+Она создаст файлы
+- `app\Mail\Reservations.php`
+- `resources\views\emails\reservation.blade.php`
+
+Эта часть удалена из последнего файла и заменена своим кодом
+
+    The body of your message.
+
+    @component('mail::button', ['url' => ''])
+    Button Text
+    @endcomponent
+
+После корректировки файла `app\Libraries\Notifications.php` команда отправки письма
+
+    php artisan reservations:notify 1
+
+###  Connection could not be established with host localhost :stream_socket_client(): unable to connect to localhost:1025 (Cannot assign requested address)
+
+Возможна проблема. Вызвана она использованием Docker'a и тем, что подразумевается под localhost, который указывается в .env.
+
+https://laracasts.com/discuss/channels/laravel/help-for-laravel-sail-rabbitmq
+
+    "Конфигурация хоста. Поскольку вы используете Docker, localhost может не указывать на тот хост, который вы ожидаете. Если RabbitMQ работает как отдельная служба в Docker, в качестве хоста следует использовать имя службы, указанное в docker-compose.yml, а не localhost или 127.0.0.1."
+
+Решение в изменении параметра MAIL_HOST, указав имя службы из docker-compose.yml
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=mailhog  # имя службы из docker-compose.yml
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+```
+
+## 
