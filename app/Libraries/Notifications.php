@@ -12,6 +12,9 @@ class Notifications implements NotificationsInterface
         // удалено, теперь - отправка почты
         // var_dump('notify');
 
-        Mail::to('sample@test.com')->send(new Reservations());
+        // Mail::to('sample@test.com')->send(new Reservations());
+        
+        // Другой вариант отправки, через настройку коснтруктора
+        Mail::to('sample@test.com')->send(new Reservations('Alex Winger'));
     }
 }

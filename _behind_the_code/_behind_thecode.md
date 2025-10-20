@@ -289,7 +289,7 @@ MAIL_ENCRYPTION=null
 
 Доступ к внутреннему почтовому приложению теперь будет по умолчанию по адресу:  `http://localhost:8025`.
 
-Команда, которая Create a new email class. 
+Команда, которая создаст новый email класс. 
 
     php artisan make:mail Reservations --markdown=emails.reservation
 
@@ -309,6 +309,8 @@ MAIL_ENCRYPTION=null
 
     php artisan reservations:notify 1
 
+Некоторые из настроек писем можно задавать глобально в файле `config\mail.php`. 
+
 ###  Connection could not be established with host localhost :stream_socket_client(): unable to connect to localhost:1025 (Cannot assign requested address)
 
 Возможна проблема. Вызвана она использованием Docker'a и тем, что подразумевается под localhost, который указывается в .env.
@@ -317,7 +319,7 @@ https://laracasts.com/discuss/channels/laravel/help-for-laravel-sail-rabbitmq
 
     "Конфигурация хоста. Поскольку вы используете Docker, localhost может не указывать на тот хост, который вы ожидаете. Если RabbitMQ работает как отдельная служба в Docker, в качестве хоста следует использовать имя службы, указанное в docker-compose.yml, а не localhost или 127.0.0.1."
 
-Решение в изменении параметра MAIL_HOST, указав имя службы из docker-compose.yml
+Таким образом, решение - в изменении параметра MAIL_HOST, указав имя службы из docker-compose.yml
 
 ```
 MAIL_DRIVER=smtp
@@ -327,5 +329,25 @@ MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 ```
+
+Доступ по `http://localhost:8025`, согласно `docker-compose.yml`
+
+```yml
+    mailhog:  
+    image: mailhog/mailhog  
+    ports:
+      - "1025:1025" # порт SMTP   
+      - "8025:8025" # порт веб-интерфейса MailHog  
+```
+
+Корректировка файлов  
+`app\Libraries\Notifications.php`  
+`app\Mail\Reservations.php`  
+способствует отправке для  имени человека в письме - **переменной** вместо отправки **строки** имени. Для этого используется настройка конструтктора класса `Reservations`.      
+Команда та же.  
+
+    php artisan reservations:notify 1
+
+В продакшн-среде достаточно поменять параметры MAIL файла `.env` на данные своего провайдера почты.  
 
 ## 

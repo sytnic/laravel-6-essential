@@ -16,9 +16,9 @@ class Reservations extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $name='')
     {
-        //
+        $this->name = $name;
     }
 
     /**
@@ -30,7 +30,7 @@ class Reservations extends Mailable
     {
         return $this->markdown('emails.reservation')
         ->with([
-            'name' => 'Alex Winger',
+            'name' => $this->name,
         ]);
     }
 }
