@@ -4,10 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+// класс для уведомлений:
+use Illuminate\Notifications\Notifiable;
+
 
 class Booking extends Model
 {
     use SoftDeletes;
+    use Notifiable;
+    
     // поля, которые мы разрешим заполнять
     protected $fillable = [
         'room_id',

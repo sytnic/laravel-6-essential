@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 // use Facades\App\Libraries\Notifications;
 use App\Libraries\Notifications;
+use App\Notifications\Reservation;
 
 class EmailReservationsCommand extends Command
 {
@@ -91,7 +92,9 @@ class EmailReservationsCommand extends Command
 
         // if вынесен в отдельную функцию,
         // к-рую будем проверять юнит-тестом
-        $this->processBooking();
+
+        // добавлен параметр $booking, для работы уведомлений
+        $this->processBooking($booking);
 
           // замечено, что эта строчка $bar->advance() не отрабатывает в консоли Docker'a
           $bar->advance();
@@ -102,7 +105,8 @@ class EmailReservationsCommand extends Command
         $this->comment(' Command completed!');            
     }
 
-    public function processBooking () 
+    // добавлен параметр $booking, для работы уведомлений
+    public function processBooking ($booking) 
     {
         // обработка опции
         if ($this->option('dry-run')) {
@@ -111,8 +115,11 @@ class EmailReservationsCommand extends Command
         } else {
             //$this->error(' Nothing happened'); 
             
-            $this->notify->send();
+            //$this->notify->send();
             // Notifications::send();
+
+            // Отправка письма-уведомления
+            $booking->notify(new Reservation('Mart Martin'));
         }
     }
 }

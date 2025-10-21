@@ -350,4 +350,24 @@ MAIL_ENCRYPTION=null
 
 В продакшн-среде достаточно поменять параметры MAIL файла `.env` на данные своего провайдера почты.  
 
+## 024-Notifications
+
+Создание класса для уведомлений
+
+    php artisan make:notification Reservation
+
+После корректировки файлов
+- `app\Notifications\Reservation.php`
+- `app\Booking.php`
+- `app\Console\Commands\EmailReservationsCommand.php`
+
+вызвать команду для отправки письма-уведомления при бронировании:
+
+    php artisan reservations:notify 1
+
+Проверить в браузере через mailhog 
+
+    localhost:8025
+
 ## 
+
