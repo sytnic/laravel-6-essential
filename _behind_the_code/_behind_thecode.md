@@ -371,11 +371,33 @@ MAIL_ENCRYPTION=null
 
 ## 025-Queue jobs
 
+> Простейший job
+
 Создать класс джоба, задания
 
     php artisan make:job ProcessBookingJob
 
 После настройки `app\Jobs\ProcessBookingJob.php` и `app\Http\Controllers\BookingController@update` вызываем обновление на странице `http://localhost:8180/bookings` и получаем задержку в 5 секунд, которую настроили в `ProcessBookingJob`.  
 
+> Использование БД
 
+Добавить таблицу очередей в БД.  
+Create a migration for the queue jobs database table.  
 
+    php artisan queue:table
+
+Запуск миграций, создание таблицы
+
+    php artisan migrate
+
+В `.env` файле вместо
+
+    QUEUE_CONNECTION=sync
+
+поставить
+
+    QUEUE_CONNECTION=database
+
+После настройки `app\Http\Controllers\BookingController@update` вызываем обновление на странице `http://localhost:8180/bookings` и уже не получаем задержку в 5 секунд, которую настроили в `ProcessBookingJob`.  
+
+## 

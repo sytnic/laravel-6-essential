@@ -170,7 +170,10 @@ class BookingController extends Controller
     public function update(Request $request, Booking $booking)
     {
         // Добавить задание job
-        (new \App\Jobs\ProcessBookingJob($booking))->handle();
+        // (new \App\Jobs\ProcessBookingJob($booking))->handle();
+
+        // Добавить задание job с учётом созданной миграции очередей и таблицы в БД
+        (\App\Jobs\ProcessBookingJob::dispatch($booking));
 
         // Требования по обязательности полей при обновлении.
         // Проверить валидацию можно на странице редактирования записи:
