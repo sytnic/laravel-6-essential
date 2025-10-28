@@ -169,6 +169,9 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
+        // Добавить задание job
+        (new \App\Jobs\ProcessBookingJob($booking))->handle();
+
         // Требования по обязательности полей при обновлении.
         // Проверить валидацию можно на странице редактирования записи:
         // bookings/{booking}/edit, например, bookings/1/edit

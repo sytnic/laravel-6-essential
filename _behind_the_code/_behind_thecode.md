@@ -369,5 +369,13 @@ MAIL_ENCRYPTION=null
 
     localhost:8025
 
-## 
+## 025-Queue jobs
+
+Создать класс джоба, задания
+
+    php artisan make:job ProcessBookingJob
+
+После настройки `app\Jobs\ProcessBookingJob.php` и `app\Http\Controllers\BookingController@update` вызываем обновление на странице `http://localhost:8180/bookings` и получаем задержку в 5 секунд, которую настроили в `ProcessBookingJob`.  
+
+
 
