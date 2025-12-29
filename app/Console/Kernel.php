@@ -26,6 +26,14 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        // настраиваем команду запуска "php artisan env" для планировщика CRON
+        $schedule->command('env')
+            ->everyMinute()
+            ->environments(['local'])
+            ->runInBackground()
+            ->appendOutputTo('/var/www/html/storage/logs/env.log')
+            ->after(function() { return true; });
     }
 
     /**

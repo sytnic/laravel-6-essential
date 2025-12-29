@@ -476,7 +476,25 @@ Create a migration for the queue jobs database table.
 
     cat worker.log
 
-## 
+## 027-Task scheduler
 
+Планировщики в отличие от очереди запускаются по обязательному расписанию. Очереди запускаются по какому-то событию.  
+Планировщик задач настраивается в `app\Console\Kernel.php`.  
+Здесь настраивается `protected function schedule()` и далее настраивается планировщик CRON. Crontab - это файл, который сообщает CRON'у Linux'a, какие команды выполнять.  
+
+В терминале
+
+    crontab -e
+
+Создавая файл cronttab в nano в самом низу файла для папки нашего проекта `/html` сообщаем CRON, что нужно каждую минуту каждого дня каждого месяца перейти в приложение Laravel и запустить команду расписания php artisan.
+
+    * * * * * cd /var/www/html/ && php artisan schedule:run >> /dev/null 2>&1
+
+Сохранить файл
+
+    Ctrl+O
+    Ctrl+X
+
+##   
 
 
