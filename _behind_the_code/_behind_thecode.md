@@ -377,7 +377,11 @@ MAIL_ENCRYPTION=null
 
     php artisan make:job ProcessBookingJob
 
-После настройки `app\Jobs\ProcessBookingJob.php` и `app\Http\Controllers\BookingController@update` вызываем обновление на странице `http://localhost:8180/bookings` и получаем задержку в 5 секунд, которую настроили в `ProcessBookingJob`.  
+После настройки   
+- `app\Jobs\ProcessBookingJob.php`  
+- `app\Http\Controllers\BookingController@update`   
+
+вызываем обновление на странице `http://localhost:8180/bookings` и получаем задержку в 5 секунд, которую настроили в `ProcessBookingJob`.  
 
 > Использование БД
 
@@ -400,4 +404,79 @@ Create a migration for the queue jobs database table.
 
 После настройки `app\Http\Controllers\BookingController@update` вызываем обновление на странице `http://localhost:8180/bookings` и уже не получаем задержку в 5 секунд, которую настроили в `ProcessBookingJob`.  
 
+## 026-Queue workers
+
+Запустить jobs. Так запускается по одному worker'у для выполнения каждого job.  
+
+    php artisan queue:work
+
+    Ctrl+C
+
+Запуск нескольких jobs. Запустить Tinker
+
+    php artisan tinker
+
+Получить все бронирования в Тинкере
+
+    $bookings = App\Booking::all()
+
+Отправлять новое job для каждой записи бронирования. Повторить этот запрос несколько раз. Будет создана хорошая коллекция заданий jobs.
+
+    $bookings->each(function($item) { \App\Jobs\ProcessBookingJob::dispatch($item); } );
+
+Выйти из Тинкера
+
+    exit
+
+Если запустить выполнение jobs, то видно, что работает только один worker, выполняются задачи по одной, по очереди (каждые 5 секунд, согласно настройке в `app\Jobs\ProcessBookingJob.php`)
+
+    php artisan queue:work
+
+    Ctrl+C
+
+> Supervisor
+
+Супервизор выполняет процессы в фоне и может перезапускать их при необходимости.  
+
+    sudo nano /etc/supervisor/conf.d/laravel-workers.conf
+
+Вставить контент из файла упражнений `laravel-worker.conf`.  Сохранить, выйти.  
+
+    Ctrl + O
+    Enter
+    Ctrl + X
+
+Если возникли проблемы с существованием этого файла nano в Докере:
+
+    apt install nano
+    nano -V
+
+    mkdir /etc/supervisor/
+    mkdir /etc/supervisor/conf.d/
+
+    nano /etc/supervisor/conf.d/laravel-workers.conf
+
+    Ctrl + O
+    Enter
+    Ctrl + X
+
+    cat /etc/supervisor/conf.d/laravel-workers.conf
+
+Запустить
+
+    sudo supervisorctl reread
+    sudo supervisorctl update
+    sudo supervisorctl start laravel-worker:*
+
+Если возникли проблемы с supervisor
+
+    apt install supervisor    
+
+Посмотреть лог
+
+    cat worker.log
+
 ## 
+
+
+
