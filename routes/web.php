@@ -23,7 +23,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', function() {return "Goodbye";});
 
 // ? означает необязательный параметр
-Route::get('/rooms/{roomType?}', 'ShowRoomsController');
+//Route::get('/rooms/{roomType?}', 'ShowRoomsController');
+// изменения под глубокое изучение маршрутов;
+// необязательное "where->" добавляет гарантию того, что параметр будет только строкой, а не числом
+Route::get('/rooms/{name}/{roomType?}', 'ShowRoomsController')->where('name', '[A-Za-z]+');
 
 //Равнозначно - Route::resource('bookings', 'BookingController'),
 // но во избежание ошибок

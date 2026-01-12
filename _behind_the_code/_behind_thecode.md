@@ -495,6 +495,13 @@ Create a migration for the queue jobs database table.
     Ctrl+O
     Ctrl+X
 
-##   
+## 028-Route parameters
 
+После настройки маршрута и проверки dd() в контроллере в браузере можно проверить результат по адресу `/rooms/testing`.
 
+Дальнейшая обработка котроллера позволяет использовать адреса типа  
+`http://localhost:8180/rooms/foo/2` - все вторые  
+`http://localhost:8180/rooms/test/3` - все третьи
+`http://localhost:8180/rooms/anyword` - все комнаты
+
+##
