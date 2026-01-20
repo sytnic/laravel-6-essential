@@ -26,7 +26,10 @@ Route::get('/test', function() {return "Goodbye";});
 //Route::get('/rooms/{roomType?}', 'ShowRoomsController');
 // изменения под глубокое изучение маршрутов;
 // необязательное "where->" добавляет гарантию того, что параметр будет только строкой, а не числом
-Route::get('/rooms/{name}/{roomType?}', 'ShowRoomsController')->where('name', '[A-Za-z]+');
+// Route::get('/rooms/{name}/{roomType?}', 'ShowRoomsController')->where('name', '[A-Za-z]+');
+
+Route::get('/rooms/{roomType?}', 'ShowRoomsController');
+
 
 //Равнозначно - Route::resource('bookings', 'BookingController'),
 // но во избежание ошибок

@@ -15,7 +15,7 @@ class ShowRoomsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request, string $name, $roomType = null)
+    public function __invoke(Request $request, \App\RoomType $roomType = null)
     {
         /*
         // вывод на экран простейшей строки
@@ -49,7 +49,11 @@ class ShowRoomsController extends Controller
 
         // dd($request->name);
 
-        $rooms = Room::byType($roomType)->get();
+        // Здесь будет получен экземпляр App\RoomType
+        // по адресу, например, http://localhost:8180/rooms/2
+        // dd($roomType);
+
+        $rooms = Room::byType($roomType->id)->get();
         // или возможная расширенная вариация
         // $rooms = Room::byType($roomType)->withTrashed()->where()->get();
 

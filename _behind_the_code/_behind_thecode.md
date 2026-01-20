@@ -504,4 +504,11 @@ Create a migration for the queue jobs database table.
 `http://localhost:8180/rooms/test/3` - все третьи
 `http://localhost:8180/rooms/anyword` - все комнаты
 
-##
+В аргументах контроллера используется `(Request $request, string $name, $roomType = null)`, в маршруте `'/rooms/{name}/{roomType?}'`. На этой основе можно запускать адреса типа `http://localhost:8180/rooms/foo/2`.
+
+## 029-Route model binding
+
+Здесь, после настройки контроллера и маршрута, после фнкции dd() будет получен экземпляр App\RoomType по адресу, например, http://localhost:8180/rooms/2. А вызов несуществующего id выдаст 404& например по адресу http://localhost:8180/rooms/300.  
+В контроллер передаём id `Room::byType($roomType->id)`.
+
+# 
