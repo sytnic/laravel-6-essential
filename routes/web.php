@@ -20,7 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // работает по адресу /test
-Route::get('/test', function() {return "Goodbye";});
+// добавляем middleware для тестирования
+Route::get('/test', function() {return "Goodbye";})->middleware('\App\Http\Middleware\CheckQueryParam');
 
 // ? означает необязательный параметр
 //Route::get('/rooms/{roomType?}', 'ShowRoomsController');

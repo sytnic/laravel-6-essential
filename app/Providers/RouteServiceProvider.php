@@ -52,6 +52,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
+             // добавляем свой middleware для всего стека web-маршрутов
+             ->middleware('\App\Http\Middleware\CheckQueryParam')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }
