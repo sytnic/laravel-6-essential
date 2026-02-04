@@ -13,7 +13,20 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .sourceMaps()      // добавить app.js.map файл
+    .extract(['vue'])  // изоляция vue от изменений в JS
+    .version()
     .sass('resources/sass/app.scss', 'public/css');
+
+  // поддержка автоматической синхронизации в браузере
+// mix.browserSync('sync.test');
+  // создание микса js
+// mix.scripts(['first.js', 'second.js'], 'all.js');
+  // создание микса js с поддержкой синтаксиса ES2015 (babel)
+// mix.babel(['first.js', 'second.js'], 'all.js');
+  // поддержка логики и модулей React
+// mix.react('app.jsx', 'public/js');
+
 
 // преобразование файлов less, если они есть, в готовые css
 // mix.less('path.less', 'public/css/less.css')
