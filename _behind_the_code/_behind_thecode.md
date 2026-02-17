@@ -584,5 +584,50 @@ Laravel Mix нужен для упрощения процесса компиля
 
     npm run watch-poll
 
-## 
+## 034-Authentication
+
+В Laravel 6 делается так  
+
+    composer require laravel/ui --dev
+
+Это создаёт пакет `ui` в папке `laravel`: `vendor\laravel\ui`.
+
+Далее команда, которая создаёт внешний вид файлов входа и выхода. Но это необязательная команда. Сам скелет входа создан по при установке фреймворка. Эта команда показывает пример создания окончательного решения.
+
+    php artisan ui view --auth
+
+> Установка Composer при необходимости
+
+https://getcomposer.org/download/
+
+Установить необходимые PHP-расширения: 
+
+    sudo apt install curl php-cli php-zip php-curl php-mbstring git unzip.
+
+Проверить доступность расширений: 
+
+    php -m | grep -E "(curl|zip|mbstring|json|xml)"
+
+Загрузить официальный скрипт установщика: 
+
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+
+Проверить целостность скрипта:  
+
+    php -r "if (hash_file('sha384', 'composer-setup.php') === 'c8b085408188070d5f52bcfe4ecfbee5f727afa458b2573b8eaaf77b3419b0bf2768dc67c86944da1544f06fa544fd47') { echo 'Installer verified'.PHP_EOL; } else { echo 'Installer corrupt'.PHP_EOL; unlink('composer-setup.php'); exit(1); }"
+
+Если хэш совпадает, выполнить установку: 
+
+    php composer-setup.php
+
+Поместить composer в глобальный Путь. Установка в /usr/local/bin обеспечивает, что Composer станет доступен по всей системе без необходимости в абсолютных путях.  
+
+    echo $PATH
+    mv composer.phar /usr/local/bin/composer
+
+Проверить установку: 
+
+    composer --version.
+
+## 35
 
