@@ -53,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
              // добавляем свой middleware для всего стека web-маршрутов
-             ->middleware('\App\Http\Middleware\CheckQueryParam')
+             //->middleware('\App\Http\Middleware\CheckQueryParam')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }

@@ -21,7 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // работает по адресу /test
 // добавляем middleware для тестирования
-Route::get('/test', function() {return "Goodbye";})->middleware('\App\Http\Middleware\CheckQueryParam');
+// Route::get('/test', function() {return "Goodbye";})->middleware('\App\Http\Middleware\CheckQueryParam');
+// новое middleware для тестирования авторизации - доступ к этой странице будет ограничен без авторизации
+Route::get('/test', function() {return "Goodbye";})->middleware('auth');
 
 // ? означает необязательный параметр
 //Route::get('/rooms/{roomType?}', 'ShowRoomsController');

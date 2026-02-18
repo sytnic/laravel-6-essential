@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
+    // такая конструкция обеспечит ограничение доступа 
+    // для неавторизованных пользователей ко всему контроллеру
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
