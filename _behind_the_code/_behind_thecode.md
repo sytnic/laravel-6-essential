@@ -651,5 +651,37 @@ Route::get('/test', function() {return "Goodbye";})->middleware('auth');
     }
 ```
 
+## 036-Verified users
+
+Верификация пользователей используется с подтверждением почты пользователя для доступа пользователя к отдельным маршрутам.  
+
+Для этого 
+
+- добавляется интерфейс в модель User
+
+      class User extends Authenticatable implements MustVerifyEmail
+
+- добавляются данные в маршрут
+
+       Auth::routes(['verify' => true]);
+
+       Route::get('/test', function() {return "Goodbye";})->middleware('verified');
+
+- и меняется контроллер
+
+      use Illuminate\Http\Request;
+
+      public function index(Request $request)
+      {
+        // верификация почты пользователя
+        $request->user()->sendEmailVerificationNotification();
+
+        return view('home');
+      }
+
+Теперь  
+- маршрут /home контроллера будет высылать письмо пользователю для его верификации.
+- доступ к маршруту /test может быть получен только после подтверждения почты пользователем.  
+
 ## 
 

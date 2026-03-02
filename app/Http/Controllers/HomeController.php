@@ -21,8 +21,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        // по этому маршруту /home будет выслано письмо 
+        // с верификацией пользователя через почту
+        $request->user()->sendEmailVerificationNotification();
+
         return view('home');
     }
 }

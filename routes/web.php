@@ -15,15 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// массив относится к верификации пользователя через почту
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 // работает по адресу /test
 // добавляем middleware для тестирования
 // Route::get('/test', function() {return "Goodbye";})->middleware('\App\Http\Middleware\CheckQueryParam');
+
 // новое middleware для тестирования авторизации - доступ к этой странице будет ограничен без авторизации
-Route::get('/test', function() {return "Goodbye";})->middleware('auth');
+// Route::get('/test', function() {return "Goodbye";})->middleware('auth');
+
+// новое middleware для тестирования верификации пользователя через почту;
+// доступ к этому маршруту будет получен только после верификации пользователя через почту
+Route::get('/test', function() {return "Goodbye";})->middleware('verified');
 
 // ? означает необязательный параметр
 //Route::get('/rooms/{roomType?}', 'ShowRoomsController');
