@@ -29,7 +29,14 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // новое middleware для тестирования верификации пользователя через почту;
 // доступ к этому маршруту будет получен только после верификации пользователя через почту
-Route::get('/test', function() {return "Goodbye";})->middleware('verified');
+// Route::get('/test', function() {return "Goodbye";})->middleware('verified');
+
+// пример работы шифрования и дешифрования по маршруту /test
+Route::get('/test', function() {
+    $secret = encrypt('black-saber');
+    var_dump($secret);
+    var_dump(decrypt($secret));
+})->middleware('verified');
 
 // ? означает необязательный параметр
 //Route::get('/rooms/{roomType?}', 'ShowRoomsController');
