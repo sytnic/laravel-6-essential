@@ -32,11 +32,33 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/test', function() {return "Goodbye";})->middleware('verified');
 
 // пример работы шифрования и дешифрования по маршруту /test
+/*
 Route::get('/test', function() {
     $secret = encrypt('black-saber');
     var_dump($secret);
     var_dump(decrypt($secret));
 })->middleware('verified');
+*/
+
+// пример хэширования паролей 
+Route::get('/test', function() {
+    $hash = Hash::make('black-saber');  // string(60)
+    var_dump($hash);
+    echo '<br>';
+    var_dump(Hash::check('black-saber', $hash)); // true
+    echo '<br>';
+    var_dump(Hash::needsRehash($hash));   // требуется ли обновить хэш - false
+    echo '<br>';
+    // количество раундов, по умолчанию 10
+    $oldHash = Hash::make('black-saber', ['rounds' => 5]);
+    var_dump($oldHash);  // string(60)
+    echo '<br>';
+    var_dump(Hash::needsRehash($oldHash)); // требуется ли обновить хэш - true
+    echo '<br>';
+    var_dump(Hash::make('black-saber'));  // string(60)
+    echo '<br>';
+})->middleware('verified');
+
 
 // ? означает необязательный параметр
 //Route::get('/rooms/{roomType?}', 'ShowRoomsController');

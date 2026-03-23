@@ -689,6 +689,11 @@ Route::get('/test', function() {return "Goodbye";})->middleware('auth');
 
     'cipher' => 'AES-256-CBC',
 
-Встроенная функция encrypt() зашифровывает, а decrypt() расшифровывает значения.
+Встроенная функция encrypt() зашифровывает, а decrypt() расшифровывает значения.  
+
+## 038-Password storage
+
+Но пароли шифруются необратимо.
 
 ## 
+
