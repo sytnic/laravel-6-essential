@@ -695,5 +695,43 @@ Route::get('/test', function() {return "Goodbye";})->middleware('auth');
 
 Но пароли шифруются необратимо.
 
-## 
+## 039-Preparing for deployment
 
+https://www.heroku.com/
+
+## 040-Databases
+
+Для подключения БД PostgreSQL в Heroku меняются некоторые значения в файле `config\database.php`.
+
+```php
+    use Illuminate\Support\Str;
+    $DATABASE_URL = parse_url(env('DATABASE_URL'));
+
+    'pgsql' => [
+        'driver' => 'pgsql',
+        'url' => env('DATABASE_URL'),
+        'host' => $DATABASE_URL['host'],
+        'port' => $DATABASE_URL['port'],
+        'database' => ltrim($DATABASE_URL['path'], '/'),
+        'username' => $DATABASE_URL['user'],
+        'password' => $DATABASE_URL['pass'],
+        'charset' => 'utf8',
+        'prefix' => '',
+        'prefix_indexes' => true,
+        'schema' => 'public',
+        'sslmode' => 'prefer',
+    ],
+
+```
+
+Также нужно удалить индекс `index('room_type_id')` в файле `database\migrations\2022_03_21_085110_create_hotel_tables.php` в строке 
+
+```php
+    Schema::create('rates', function (Blueprint $table) {
+        // ...
+        $table->unsignedBigInteger('room_type_id')->index('room_type_id')->comment('The corresponding room type.');
+        // ...
+    }
+```
+
+---
